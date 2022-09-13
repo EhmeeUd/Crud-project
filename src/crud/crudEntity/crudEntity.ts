@@ -8,7 +8,9 @@ export class crudEntity {
     @Column()
     name: string
 
-    @Column()
+    @Column({
+        default: ""
+    })
     phone: number
 
     @Column()

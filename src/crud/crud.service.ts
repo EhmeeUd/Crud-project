@@ -35,3 +35,7 @@ export class CrudService {
         return await this.crudRepository.delete(id);
     }
 }
+
+//  The :Promise <this is where the callback takes place> it REpresents the completion 
+// of an asynchronous operation.
+// APromise for the completion of the callback.
