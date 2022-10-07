@@ -1,6 +1,8 @@
 import { Body, Controller, Delete, Get, HttpException, Param, Post, Put } from '@nestjs/common';
 import { identity } from 'rxjs';
 import { CrudService } from './crud.service';
+import { crudDto } from './DTO/crudDto';
+
 
 @Controller('crud')
 export class CrudController {
@@ -9,15 +11,14 @@ export class CrudController {
 
     // we want to post to the Database
     @Post()
-    async createPost(@Body()post){
-
-        return await this.crudService.createUser(post);
+    async createPost(@Body() dto: crudDto){
+  return await this.crudService.createUser(dto);
     }
 
     //  we want to findUser by Id
     @Get('/:id')
     async findId(@Param('id')id:number){
-        const findUser = this.crudService.findUserById(id);
+        const findUser = await this.crudService.findUserById(id);
         // if(!findUser){
         //     throw new HttpException('No User found with this is', 404)
         // }
@@ -25,8 +26,8 @@ export class CrudController {
     }
 
     @Get()
-    async getAllUser(getUser:any){
-        return this.crudService.getAllUsers(getUser);
+    async getAllUser(dto:crudDto){
+        return this.crudService.getAllUsers(dto);
     }
 
     // we want to update

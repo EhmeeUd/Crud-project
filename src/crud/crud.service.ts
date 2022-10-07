@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { DeleteResult, Repository, UpdateResult } from 'typeorm';
 import { crudEntity } from './crudEntity/crudEntity';
+import { crudDto } from './DTO/crudDto';
 
 @Injectable()
 export class CrudService {
@@ -9,9 +10,9 @@ export class CrudService {
     Repository<crudEntity>){}
 
     // creating a post request
-    async createUser(details:any): Promise<crudEntity >{
+    async createUser(dto:crudDto): Promise<crudEntity >{
 
-        return await this.crudRepository.save(details)
+        return await this.crudRepository.save(dto)
 
     }
 
@@ -21,8 +22,9 @@ export class CrudService {
     }
 
     // Get all user
-    async getAllUsers(getUser:any): Promise<crudEntity  []>{
-        return await this.crudRepository.find(getUser)
+    async getAllUsers(dto:crudDto): Promise<crudEntity>{
+        const findUser = await this.crudRepository.save(dto)
+        return findUser;
     }
 
     // updateUser by Id

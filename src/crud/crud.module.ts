@@ -1,5 +1,7 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { AuthModule } from 'src/auth/auth.module';
+import { authEntity } from 'src/auth/authEntity/authEntity';
 import { CrudController } from './crud.controller';
 import { CrudService } from './crud.service';
 import { crudEntity } from './crudEntity/crudEntity';
@@ -9,14 +11,15 @@ import { crudEntity } from './crudEntity/crudEntity';
     TypeOrmModule.forRoot({
       type: 'mysql',
       host: 'localhost',
-      port: 3308,
+      // port: 3305,
       username: 'root',
       password: '',
       database: 'crud',
-      entities: [crudEntity],
+      entities: [crudEntity, authEntity],
       synchronize: true,
     }),
-    TypeOrmModule.forFeature([crudEntity])
+    TypeOrmModule.forFeature([crudEntity, authEntity]),
+    AuthModule
   ],
   controllers: [CrudController],
   providers: [CrudService]
